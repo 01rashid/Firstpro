@@ -1,0 +1,57 @@
+<!doctype html>
+{% load static %}
+<html lang="ar" dir="ltr">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'Bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'js/Bootstrap.jquery.min.js' %}"> -->
+    <script src="https://use.fontawesome.com/2e730ea1da.js"></script>
+    
+   
+    <title>project</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="collapse navbar-collapse container" id="navbarNavAltMarkup">
+        <div class="navbar-nav ">
+          <a class="nav-link active d-flex align-items-center" href="{% url 'home' %}"> <i class="fa fa-home mx-2 "></i> BOSH SAHEFA</a>
+          {% if user.is_superuser %}
+          <a class="nav-link" href="{% url 'users' %}">Foydalanuvchilar</a>
+          <a class="nav-link" href="{% url 'poll:groups' %}">Guruhlar</a>
+          {% endif %}
+          <a class="nav-link" href="{% url 'poll:savollar' %}">Savollar</a>
+          <a class="nav-link" href="{% url 'new:list' %}">Yangiliklar</a>
+          {% if user.is_authenticated %}
+          <a class="nav-link" href="{% url 'new:my_news' %}">Mening yangiliklarim</a>
+          <a class="nav-link" href="{% url 'userprofile:logout' %}">Tizimdan chiqish</a>
+          {% else %}
+          <a class="nav-link" href="{% url 'userprofile:register' %}">Ro'yxatdan O'tish</a>
+          <a class="nav-link" href="{% url 'userprofile:login' %}">Tizimga kirish</a>
+          {% endif %}
+        </div>
+        <a class="nav-link d-flex align-items-center" href="#"><i class="fa fa-user mx-2 "></i>{{request.user.username}}</a>
+      </div>
+  </nav>
+
+      <!-- bu ko'rinishdagi istalgan tempilitdsgi
+      bu django tempilit tegi deyiladi -->
+      <div class="container">
+        {% if messages %}
+        <ul class="messages list-unstyled">
+          {% for message in messages %}
+          <!-- <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% block content %}
+    
+        {% endblock content %}
+      </div>
+     <!-- <script src="{% static 'js/Bootstrap.jquery.min.js' %}"></script> -->
+     <script src="{% static 'js/jquery.min.js' %}"></script>
+     <script src="{% static 'js/custom.js' %}"></script>
+  </body>
+</html>
