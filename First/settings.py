@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'userprofile',
     'new',
     'extra',
+    
 ]
 
 MIDDLEWARE = [
